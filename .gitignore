@@ -4,7 +4,7 @@
 media
 
 ## virtual environment
-venv
+env
 
 ## visual studio code settings
 .vscode
