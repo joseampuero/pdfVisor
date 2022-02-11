@@ -5,13 +5,21 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
+import os
 
-def home(request):
-    # pdfPath = "/home/jose/Escritorio/speech-jobs.pdf"
-    pdfPath = "/home/jose/Documentos/books/Chip Heath, Dan Heath - Made to Stick_ Why Some Ideas Survive and Others Die.pdf"
+def visor(request, file):
+    print("llego el llamado", file)
+    pdfPath = findFilePath(file, "/home/jose/Documentos")
+    print("el path es ", pdfPath)
+
+    # pdfPath = "/home/jose/Documentos/books/Chip Heath, Dan Heath - Made to Stick_ Why Some Ideas Survive and Others Die.pdf"
     text = convert_pdf_to_txt(pdfPath)
-    return JsonResponse({"saludo": text })
+    return JsonResponse({"saludo": "respuesta desde el back"})
 
+def findFilePath(fileName, path):
+    for root, dirs, files in os.walk(path):
+        if fileName in files:
+            return os.path.join(root, fileName)
 
 def convert_pdf_to_txt(path):
     rsrcmgr = PDFResourceManager()

@@ -4,7 +4,7 @@ from rest_framework import routers
 from visor import views
 
 router = routers.DefaultRouter()
-router.register(r'visor', views.home, 'visor')
+router.register(r'visor', views.visor, 'visor')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
