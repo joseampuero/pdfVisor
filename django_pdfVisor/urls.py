@@ -8,5 +8,5 @@ router.register(r'visor', views.visor, 'visor')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('visor/', include('visor.urls')),
+    path('visor/', include('visor.urls'))
 ]

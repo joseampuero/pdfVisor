@@ -1,3 +1,4 @@
+import imp
 from django.shortcuts import render
 from django.http import JsonResponse
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -5,6 +6,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
+from visor import translatorBusinessLogic
 import os
 
 def visor(request, file):
@@ -14,7 +16,8 @@ def visor(request, file):
 
     # pdfPath = "/home/jose/Documentos/books/Chip Heath, Dan Heath - Made to Stick_ Why Some Ideas Survive and Others Die.pdf"
     text = convert_pdf_to_txt(pdfPath)
-    return JsonResponse({"saludo": "respuesta desde el back"})
+    parsedText = text.replace("\n", "<br>")
+    return JsonResponse({"text": parsedText})
 
 def findFilePath(fileName, path):
     for root, dirs, files in os.walk(path):
@@ -43,3 +46,8 @@ def convert_pdf_to_txt(path):
     device.close()
     retstr.close()
     return text
+
+
+def translator(request, sentence):
+    print(sentence)
+    return translatorBusinessLogic.translate(sentence)
