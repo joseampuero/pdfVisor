@@ -1,4 +1,3 @@
-import imp
 from django.shortcuts import render
 from django.http import JsonResponse
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -49,5 +48,4 @@ def convert_pdf_to_txt(path):
 
 
 def translator(request, sentence):
-    print(sentence)
     return translatorBusinessLogic.translate(sentence)
