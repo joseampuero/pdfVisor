@@ -5,7 +5,7 @@ from pdfminer.pdfpage import PDFPage
 from io import StringIO
 import os
 
-def convert_pdf_to_txt(path):
+def convert_pdf_to_txt(path, fromPage, toPage):
     rsrcmgr = PDFResourceManager()
     retstr = StringIO()
     codec = 'utf-8'
@@ -14,12 +14,19 @@ def convert_pdf_to_txt(path):
     fp = open(path, 'rb')
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     password = ""
-    maxpages = 0
+    maxpages = toPage
     caching = True
     pagenos=set()
-
-    for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
-        interpreter.process_page(page)
+    
+    pageIterator = 0
+    for page in PDFPage.get_pages(fp, pagenos, maxpages, password=password,caching=caching, check_extractable=True):
+        if pageIterator >= fromPage and pageIterator < toPage:
+            interpreter.process_page(page)
+        
+        pageIterator = pageIterator + 1
+        if pageIterator == toPage:
+            print("salir", pageIterator)
+            break
 
     text = retstr.getvalue()
 
@@ -32,4 +39,20 @@ def findFilePath(fileName, path):
     for root, dirs, files in os.walk(path):
         if fileName in files:
             return os.path.join(root, fileName)
+
+def loadOnDemand(targetFile, fromPage, toPage):
+    """
+    pages are loaded by 10
+    """
+    print("desde hasta: " , fromPage, toPage)
+    data = convert_pdf_to_txt(targetFile, fromPage, toPage)
+    return parserData(data)
+
+
+def parserData(data):
+    parsedData = data.replace("\n", "<br>")
+    parsedData = parsedData.split("\f", 10)
+    parsedData.pop()
+    return parsedData
+    
 
