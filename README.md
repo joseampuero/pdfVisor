@@ -2,7 +2,7 @@ Pasos a seguir:
 
 - Instalamos virtualenv (si ya lo tenes no es necesario)
 
-- Abrimos el ambiente para intalar los paquetes necesarios para el proyecto.
+- Activamos el ambiente para instalar los paquetes necesarios para el proyecto.
 
 - Instalamos django.
 

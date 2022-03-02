@@ -12,3 +12,7 @@ env
 ### ignore sqlite3
 
 db.sqlite3
+
+### constants
+
+constants
