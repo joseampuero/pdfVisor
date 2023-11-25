@@ -26,3 +26,7 @@ python manage.py makemigrations
 Para instalar pdfMiner tire dos comandos:
 pip install pdfminer3k
 pip3 install pdfminer.six
+
+- Para correr el proyecto 
+source env/bin/activate
+python manage.py runserver
