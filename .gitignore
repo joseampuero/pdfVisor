@@ -16,3 +16,9 @@ db.sqlite3
 ### constants
 
 constants.py
+
+### data
+data
+
+### skeleton
+skeleton.json

@@ -53,6 +53,4 @@ def parserData(data):
     parsedData = data.replace("\n", "<br>")
     parsedData = parsedData.split("\f", 10)
     parsedData.pop()
-    return parsedData
-    
-
+    return parsedData  

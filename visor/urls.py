@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('<str:file>/<int:fromPage>/<int:toPage>', views.visor, name="visor"),
-    path('translate/<str:sentence>', views.translator, name="tranlate")
+    path('translate/<str:sentence>', views.translator, name="tranlate"),
+    path('<int:fromPage>/<int:toPage>', views.learn, name="learn")
 ]
