@@ -6,6 +6,7 @@ from visor.scripts import storageScripts
 
 CONTENT_KEY = "content"
 MAX_SIZE_KB = 24
+FOLDER_PATH_DATA_TO_AI= "/home/jose/Documentos/skills/pdfVisor/dataAI"
 
 def learningHandler(fromPage, toPage):
     data = get_content(fromPage, toPage)
@@ -48,6 +49,8 @@ def get_content(fromPage, toPage):
 
     return content
 
+# this method is in progress ...
+### make files with no exeeded page size of (MAX_SIZE_KB * 1000)MB 
 def draw_up(pages):
     # is a set of pages that does not exceed the maximum size in kb
     virtualPage = [] 
@@ -69,5 +72,3 @@ def draw_up(pages):
     
     if virtualPage:
         virtualChapter.append(virtualPage)
-    
-    
