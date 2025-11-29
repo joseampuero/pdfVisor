@@ -3,8 +3,10 @@ from django.views.decorators.csrf import csrf_exempt
 from visor.scripts import translatorScripts, visorScripts, storageScripts, learnScript
 from visor.serializers import textSerializer
 from visor.models import Text
+from django.http import JsonResponse, FileResponse  
 import constants
 import json
+
 
 def visor(request, file, fromPage, toPage):
     pdfPath = visorScripts.findFilePath(file, constants.ROOT_PATH)
@@ -48,3 +50,15 @@ def translator_post(request):
 def learn(request, fromPage, toPage):
     learnScript.learningHandler(fromPage, toPage)
     return JsonResponse({"status": "success"})  # Cambié esto también
+
+def serve_pdf(request, file):
+    """Sirve el archivo PDF completo para renderizarlo con PDF.js"""
+    print("Serving PDF file:", file)
+    pdfPath = visorScripts.findFilePath(file, constants.ROOT_PATH)
+    
+    if not pdfPath:
+        return JsonResponse({"error": "PDF not found"}, status=404)
+    
+    # Abrir el archivo en modo binario y devolverlo como respuesta
+    print(pdfPath)
+    return FileResponse(open(pdfPath, 'rb'), content_type='application/pdf')

@@ -5,5 +5,6 @@ urlpatterns = [
     path('<str:file>/<int:fromPage>/<int:toPage>', views.visor, name="visor"),
     path('translate/<str:sentence>', views.translator, name="translate"),  # GET - palabras simples
     path('translate/', views.translator_post, name="translate_post"),      # POST - frases largas
-    path('<int:fromPage>/<int:toPage>', views.learn, name="learn")
+    path('<int:fromPage>/<int:toPage>', views.learn, name="learn"),
+    path('pdf/<str:file>', views.serve_pdf, name="serve_pdf"),
 ]

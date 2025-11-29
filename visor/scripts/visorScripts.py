@@ -50,7 +50,29 @@ def loadOnDemand(targetFile, fromPage, toPage):
 
 
 def parserData(data):
-    parsedData = data.replace("\n", "<br>")
-    parsedData = parsedData.split("\f", 10)
-    parsedData.pop()
-    return parsedData  
+    # Dividir por páginas primero (separador \f)
+    parsedData = data.split("\f")
+    parsedData = [page for page in parsedData if page.strip()]  # Remover páginas vacías
+    
+    # Convertir cada página a párrafos HTML clickeables
+    pages_with_paragraphs = []
+    
+    for page_index, page in enumerate(parsedData):
+        # Dividir por saltos de línea dobles (párrafos reales)
+        paragraphs = page.split("\n\n")
+        
+        # Crear HTML con párrafos clickeables
+        html_paragraphs = []
+        for paragraph_index, paragraph in enumerate(paragraphs):
+            if paragraph.strip():
+                # Limpiar saltos de línea simples dentro del párrafo
+                clean_paragraph = paragraph.replace("\n", " ").strip()
+                # Crear párrafo con ID único y clase clickeable
+                paragraph_id = f"page-{page_index}-paragraph-{paragraph_index}"
+                html_paragraphs.append(
+                    f'<p class="clickable-paragraph" data-paragraph-id="{paragraph_id}">{clean_paragraph}</p>'
+                )
+        
+        pages_with_paragraphs.append("".join(html_paragraphs))
+    
+    return pages_with_paragraphs
